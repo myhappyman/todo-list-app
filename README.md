@@ -83,3 +83,13 @@ setValue("toDo", "");
 const {register, handleSubmit, formState:{errors}} = useForm({defaultValues: {
 email: "@naver.com"
 }})
+
+2. recoil학습
+   먼저 앞에서 theme 바꾸는 연습을 하면서 recoil을 통해 global state를 다뤄봤다.
+   const value = useRecoilValue(toDoState); //atom으로 부터 값을 가져옴
+   const setValue = useSetRecoilState(toDoState); //atom의 값을 변경한다.
+
+2개를 통해 제어했는데, 2개 모두 필요한 상황에선 아래처럼 사용하면 된다.
+const [toDo, setToDo] = useRecoilState(toDoState);
+
+기존에 사용하던 useState와 굉장히 흡사하다.
