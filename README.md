@@ -71,6 +71,13 @@ setError(
 {shouldFocus: true} //에러가 발생한경우 포커스를 할것인지
 );
 
+-setValue
+특정 항목의 값을 제어할 수 있다.
+
+@arg1 : 대상 항목이름
+@arg2 : 처리할 값
+setValue("toDo", "");
+
 1-1. useForm안에 object형태로 register에 등록할 이름과 값을 넣으면 기본값을 처리 할 수 있다.
 
 const {register, handleSubmit, formState:{errors}} = useForm({defaultValues: {
