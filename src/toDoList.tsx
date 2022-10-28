@@ -28,19 +28,35 @@ import { useForm } from "react-hook-form";
 //     </div>);
 // }
 
-function ToDoList(){
-    const { register, watch } = useForm();
-    console.log(watch());
+interface IForm{
+    Email: string;
+    FirstName: string;
+    LastName: string;
+    Password: string;
+    PasswordConfirm: string;
+    UserName: string;
+}
 
+function ToDoList(){
+    const { register,  handleSubmit, formState } = useForm();
+    const onValid = (data:any) => {
+        console.log(data);
+    }
+    console.log(formState.errors);
     return (
     <div>
-        <form >
-            <input {...register("Email")} type="text" placeholder="Email" />
-            <input {...register("First Name")} type="text" placeholder="이름" />
-            <input {...register("Last Name")} type="text" placeholder="성" />
-            <input {...register("UserName")} type="text" placeholder="이름" />
-            <input {...register("Password")} type="password" placeholder="비밀번호" />
-            <input {...register("PasswordConfirm")} type="password" placeholder="비밀번호확인" />
+        <form style={{display:"flex", flexDirection:"column"}} onSubmit={handleSubmit(onValid)}>
+            <input {...register("Email", {required: true})} type="text" placeholder="Email" />
+            <input {...register("FirstName", {required: true})} type="text" placeholder="이름" />
+            <input {...register("LastName", {required: true})} type="text" placeholder="성" />
+            <input {...register("UserName", {required: true, minLength: 10}) } type="text" placeholder="이름" />
+            <input {
+                ...register("Password", {
+                            required: "비밀번호는 필수값입니다.",
+                            minLength: {value: 5, message: "비밀번호는 최소 5자리 이상이어야 합니다."} 
+                        })} 
+            type="password" placeholder="비밀번호" />
+            <input {...register("PasswordConfirm", {required: true, minLength: 5})} type="password" placeholder="비밀번호확인" />
             <button>Add</button>
         </form>
     </div>
