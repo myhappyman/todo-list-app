@@ -19,9 +19,19 @@ onBlur, onChange를 가지고 있다.
 > {
 
     required:"비밀번호 항목은 필수입니다.",
-    "minLength": {value:5, message: "비밀번호는 최소 5자리 이상입니다."}
+    minLength: {value:5, message: "비밀번호는 최소 5자리 이상입니다."}
+    maxLength: {value:20, message: "비밀번호는 최대 20자리까지 허용합니다."}
+    validate: (value) => value.includes("admin") ? "admin은 포함 시킬 수 없습니다." : true
+
+    또는 여러개를 적용할 수도 있다.
+    validate: {
+        admin: (value) => value.includes("admin") ? "admin은 포함 시킬 수 없습니다." : true,
+        noShin: (value) => value.includes("Shin") ? "Shin은 포함 시킬 수 없습니다." : true,
+    }
 
 }
+validate에는 true가 되면 허용이고 false가 발생하면 오류를 발생시킨다.
+또는 문자열이 return되어도 false처럼 오류처리로 인식하고 메시지를 뿜어낸다.
 
 등 형태로 입력할 수 있고 정규식은 pattern이라는걸 통해 입력해서 처리 할수 있다.
 마찬가지로 value에는 패턴을 message에는 오류시 발생 메시지를 처리한다.
@@ -49,6 +59,17 @@ formState은 form태그의 에러들을 찾아준다.
 formState.errors를 써두면 submit의 input들의 입력값에 따라 에러가 발생할수 있는 항목들을 object형태로 나열해준다. 에러가 무엇인지는 type값에 들어가 있다.
 
 또한 해당 값을 span태그 등을 활용하여 정의한 message값을 노출시켜서 유효성 검사와 에러메시지를 표출해줄 수 있다.
+
+-setError
+강제로 에러를 발생시켜준다.
+id를 입력하는 필드에서 중복체크 기능을 만들떄, 서버에서 체크를 해야할텐데 이미 사용중인 id라면 에러를 발생시켜야한다.
+
+사용법은 아래와 같다.
+setError(
+"passwordConfirm", //에러 처리를 할 항목
+{message: "비밀번호가 서로 다릅니다."}, //에러 메시지
+{shouldFocus: true} //에러가 발생한경우 포커스를 할것인지
+);
 
 1-1. useForm안에 object형태로 register에 등록할 이름과 값을 넣으면 기본값을 처리 할 수 있다.
 

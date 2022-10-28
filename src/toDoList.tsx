@@ -34,17 +34,29 @@ interface IForm {
     lastName: string;
     password: string;
     passwordConfirm: string;
-    userName: string;    
+    userName: string;
+    extraError?: string;
 }
 
 function ToDoList(){
-    const { register,  handleSubmit, formState:{errors} } = useForm<IForm>(
+    const { 
+        register, 
+        handleSubmit, 
+        formState:{errors},
+        setError} = useForm<IForm>(
         {defaultValues: {
             email: "@naver.com"
         }}
     );
     const onValid = (data:IForm) => {
-        console.log(data);
+        if(data.password !== data.passwordConfirm){
+            setError(
+                "passwordConfirm", //에러 처리를 할 항목
+                {message: "비밀번호가 서로 다릅니다."}, //에러 메시지
+                {shouldFocus: true} //에러가 발생한경우 포커스를 할것인지
+            );
+        }
+        // setError("extraError", {message: "Server offline."}, );
     }
     
     return (
@@ -60,7 +72,15 @@ function ToDoList(){
                 })} 
                 type="text" placeholder="email" />
             <span>{errors?.email?.message}</span>
-            <input {...register("firstName", {required: "firstName은 필수값입니다."})} type="text" placeholder="이름" />
+            <input {
+                ...register("firstName", 
+                {
+                    required: "firstName은 필수값입니다.",
+                    validate: {
+                        admin: (value) => value.includes("admin") ? "admin은 포함 시킬 수 없습니다." : true,
+                        noShin: (value) => value.includes("Shin") ? "Shin은 포함 시킬 수 없습니다." : true,
+                    }
+                })} type="text" placeholder="이름" />
             <span>{errors?.firstName?.message}</span>
             <input {...register("lastName", {required: "lastName은 필수값입니다."})} type="text" placeholder="성" />
             <span>{errors?.lastName?.message}</span>
@@ -76,6 +96,7 @@ function ToDoList(){
             <input {...register("passwordConfirm", {required: "비밀번호 확인은 필수값입니다.", minLength: 5})} type="password" placeholder="비밀번호확인" />
             <span>{errors?.passwordConfirm?.message}</span>
             <button>Add</button>
+            <span>{errors?.extraError?.message}</span>
         </form>
     </div>
     );
