@@ -12,6 +12,20 @@ onBlur, onChange를 가지고 있다.
 
 생성한 함수 register를 input 태그내에 {...register("이름")} 형태로 넣어서 스프레드 연산자를 통해 자연스럽게 value, onChange, state값등을 처리할 수 있다.
 
+이후 2번째 인자에는 각종 유효성 검사 항목을 object형태로 넣어서 체크할 수 있다.
+
+> {required:true}
+> {required:"이름 항목은 필수입니다."}
+> {
+
+    required:"비밀번호 항목은 필수입니다.",
+    "minLength": {value:5, message: "비밀번호는 최소 5자리 이상입니다."}
+
+}
+
+등 형태로 입력할 수 있고 정규식은 pattern이라는걸 통해 입력해서 처리 할수 있다.
+마찬가지로 value에는 패턴을 message에는 오류시 발생 메시지를 처리한다.
+
 -watch
 watch는 form에 입력한 값의 변화를 관찰할 수 있게 해준다.
 watch를 실행해보면 input에 등록한 toDo라는 값의 입력이 어떤게 변화하고 있는지 다 출력해준다.
@@ -33,3 +47,11 @@ _/
 -formState
 formState은 form태그의 에러들을 찾아준다.
 formState.errors를 써두면 submit의 input들의 입력값에 따라 에러가 발생할수 있는 항목들을 object형태로 나열해준다. 에러가 무엇인지는 type값에 들어가 있다.
+
+또한 해당 값을 span태그 등을 활용하여 정의한 message값을 노출시켜서 유효성 검사와 에러메시지를 표출해줄 수 있다.
+
+1-1. useForm안에 object형태로 register에 등록할 이름과 값을 넣으면 기본값을 처리 할 수 있다.
+
+const {register, handleSubmit, formState:{errors}} = useForm({defaultValues: {
+email: "@naver.com"
+}})
