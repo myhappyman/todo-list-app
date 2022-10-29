@@ -1,43 +1,17 @@
-import { useForm } from "react-hook-form";
-import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-
-interface IForm{
-    toDo:string;
-}
-
-interface IToDo{
-    text : string;
-    id: number;
-    category: "TO_DO"|"DOING"|"DONE"; //카테고리의 값을 제한한다. 문자열 중 입력한 3개중 하나만 가능
-}
-
-const toDoState = atom<IToDo[]>({
-    key:"toDo",    
-    default: []
-});
+import { useRecoilValue } from "recoil";
+import { toDoState } from "../atoms";
+import CreateToDo from "./createToDo";
+import ToDo from "./toDo";
 
 function ToDoList(){
-    // const value = useRecoilValue(toDoState); //atom으로 부터 값을 가져옴
-    // const modifierFn = useSetRecoilState(toDoState); //atom의 값을 변경한다.
-
-    //위에서 2번 선언하지 말고 useRecoilState를 쓰면 기존 useState처럼 사용할수있다.
-    const [toDos, setToDos] = useRecoilState(toDoState);
-    const {register, handleSubmit, setValue} = useForm<IForm>();
-
-    const onValid = ({toDo}:IForm) => {
-        setValue("toDo", "");
-        setToDos(oldToDos => [{text:toDo, id:Date.now(), category:"TO_DO"}, ...oldToDos]);
-    }
-    console.log(toDos);
+    const toDos = useRecoilValue(toDoState);
     return (
     <div>
         <h1>To Dos</h1>
-        <form onSubmit={handleSubmit(onValid)}>
-            <input {...register("toDo", {required: "할 일은 필수값입니다."})} type="text" placeholder="Write a to do" />
-            <button>Add</button>
-        </form>
+        <CreateToDo />
         <ul>
-            {toDos.map(todo => <li key={todo.id}>{todo.category} : {todo.text}</li>)}
+            {/* {toDos.map(todo => <ToDo text={todo.text} />)} */}
+            {toDos.map(todo => <ToDo key={todo.id} {...todo} />)}
         </ul>
     </div>);
 }
