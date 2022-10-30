@@ -1,5 +1,7 @@
 import { createGlobalStyle } from "styled-components";
+// import ToDoList_Review from "./components/toDoList_REVIEW";
 import ToDoList from "./components/toDoList";
+import ToDoList_Review from "./components/toDoList_Review";
 
 const GlobalStyle = createGlobalStyle`
   /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -69,7 +71,8 @@ function App() {
   return (
     <>
         <GlobalStyle />
-        <ToDoList />
+        {/* <ToDoList /> */}
+        <ToDoList_Review />
     </>
   );
 }
