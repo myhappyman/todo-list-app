@@ -11,7 +11,8 @@ import { IToDo, toDoState } from "../atoms";
  * 5. const front = ["banana"];
  * 6. const back = ["mango", "감", "김밥"];
  * 7. const newArr = [...front, "pear", ...back];
- * 
+ * 8. 특정 배열을 기준으로 잘라낼땐 슬라이스가 편하다.
+ * 9. 다른사람들은 보니 map을 통해 위치를 찾고 위치가 맞다면 거기서 object를 리턴하도록 처리하였다.
  * @param param0 
  * @returns 
  */
@@ -24,13 +25,17 @@ function ToDo({text, category, id}:IToDo){
     const onClick = (event:React.MouseEvent<HTMLButtonElement>) => {
         const {currentTarget:{name}} = event;
         console.log("i wanna to ", name);
-        setToDos(oldToDos => {
+        setToDos((oldToDos) => {
             const targetIndex = oldToDos.findIndex(toDo => toDo.id === id);
             const oldTodo = oldToDos[targetIndex];
-            const newToDO = {text, id, category:name};
+            const newToDO = {text, id, category:name as any};
             console.log(oldTodo);
             console.log(newToDO);
-            return oldToDos;
+            return [
+                ...oldToDos.slice(0, targetIndex), //front
+                newToDO, //new
+                ...oldToDos.slice(targetIndex+1) //back
+            ];
         });
 
     }
