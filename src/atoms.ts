@@ -10,3 +10,8 @@ export const toDoState = atom<IToDo[]>({
     key:"toDo",    
     default: []
 });
+
+export const isDarkAtom = atom({
+    key: "isDark",
+    default: true,
+});
