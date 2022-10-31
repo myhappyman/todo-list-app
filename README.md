@@ -93,3 +93,18 @@ email: "@naver.com"
 const [toDo, setToDo] = useRecoilState(toDoState);
 
 기존에 사용하던 useState와 굉장히 흡사하다.
+
+3. categories
+   컴포넌트를 나눴고 onClick이벤트 처리에 따라 category값을 변경하고 싶다.
+   onClick이벤트를 button요소들마다 줬고 onClick이벤트에서 처리는 아래와 같이 한다.
+
+onClick={() => onClick("TODO")}
+//onClick={onClick("TODO")} x
+
+    또는 태그내 name값을 입력하고 onClick={onClick} 처리 후
+    메소드 내에서 event를 통해 데이터 값을 알아내도 된다.
+
+const onClick = (event:React.MouseEvent<HTMLButtonElement>) => {
+const {currentTarget:{name}} = event;
+console.log("i wanna to ", name);
+}
