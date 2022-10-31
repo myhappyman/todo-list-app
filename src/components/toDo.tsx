@@ -2,12 +2,12 @@ import { IToDo } from "../atoms";
 
 function ToDo({text}:IToDo){
     return (
-    <li>
-        {text} 
-        <button>Doing</button>
-        <button>ToDo</button>
-        <button>Done</button>
-    </li>
+        <li>
+            {text}
+            <button>TODO</button>
+            <button>DOING</button>
+            <button>DONE</button>
+        </li>
     );
 }
 

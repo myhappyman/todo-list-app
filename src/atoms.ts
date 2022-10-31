@@ -1,17 +1,17 @@
 import { atom } from "recoil";
 
-export interface IToDo{
-    text : string;
+/**
+ * ToDo가 어떻게 생겻는지 설명하는 interface
+ */
+export interface IToDo {
+    text: string;
     id: number;
-    category: "TO_DO"|"DOING"|"DONE"; //카테고리의 값을 제한한다. 문자열 중 입력한 3개중 하나만 가능
+    category: "TODO" | "DOING" | "DONE" //3개만 허용
+    // category: string;
 }
 
+//atom으로 toDo State 정의
 export const toDoState = atom<IToDo[]>({
-    key:"toDo",    
+    key: "toDo",
     default: []
-});
-
-export const isDarkAtom = atom({
-    key: "isDark",
-    default: true,
 });
