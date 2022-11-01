@@ -1,18 +1,28 @@
 import { atom, selector } from "recoil";
 
+// type categories = "TODO" | "DOING" | "DONE";
+
+//enumerable
+export enum Categories{
+    "TODO"="TODO",
+    "DOING"="DOING",
+    "DONE"="DONE"
+}
+
 /**
  * ToDo가 어떻게 생겻는지 설명하는 interface
  */
 export interface IToDo {
     text: string;
     id: number;
-    category: "TODO" | "DOING" | "DONE" //3개만 허용
+    category: Categories //3개만 허용
+    // category: "TODO" | "DOING" | "DONE" //3개만 허용
     // category: string;
 }
 
-export const categoryState = atom({
+export const categoryState = atom<Categories>({
     key: "category",
-    default: "TODO"
+    default: Categories.TODO
 })
 
 //atom으로 toDo State 정의

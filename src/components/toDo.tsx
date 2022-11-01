@@ -1,6 +1,6 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
-import { IToDo, toDoState } from "../atoms";
+import { Categories, IToDo, toDoState } from "../atoms";
 
 /**
  * array안에 있는 값을 수정하기
@@ -23,14 +23,10 @@ function ToDo({text, category, id}:IToDo){
     // }
     const setToDos = useSetRecoilState(toDoState);
     const onClick = (event:React.MouseEvent<HTMLButtonElement>) => {
-        const {currentTarget:{name}} = event;
-        console.log("i wanna to ", name);
+        const { currentTarget:{ name } } = event;
         setToDos((oldToDos) => {
             const targetIndex = oldToDos.findIndex(toDo => toDo.id === id);
-            const oldTodo = oldToDos[targetIndex];
-            const newToDO = {text, id, category:name as any};
-            console.log(oldTodo);
-            console.log(newToDO);
+            const newToDO = {text, id, category:name as Categories};
             return [
                 ...oldToDos.slice(0, targetIndex), //front
                 newToDO, //new
@@ -44,9 +40,9 @@ function ToDo({text, category, id}:IToDo){
     return (
         <li>
             {text}
-            {category !== "TODO" && <button name="TODO" onClick={onClick}>TODO</button>}
-            {category !== "DOING" && <button name="DOING" onClick={onClick}>DOING</button>}
-            {category !== "DONE" && <button name="DONE" onClick={onClick}>DONE</button>}
+            {category !== Categories.TODO && <button name={Categories.TODO} onClick={onClick}>TODO</button>}
+            {category !== Categories.DOING && <button name={Categories.DOING} onClick={onClick}>DOING</button>}
+            {category !== Categories.DONE && <button name={Categories.DONE} onClick={onClick}>DONE</button>}
         </li>
     );
 }

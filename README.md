@@ -116,3 +116,30 @@ console.log("i wanna to ", name);
 
    selector에는 key, get을 필수로 object값을 받습니다.
    get에는 get object의 파라미터 인자를 받는 함수를 return 해주어야합니다.
+
+5. ENUM
+
+   그동안 카테고리의 타입들을 "TODO" | "DOING" | "DONE"
+   형태로 문자열을 적어주다가 반복해서 사용할일이 생겨서 이것또한 type으로 정의하여 type명을 넣어주면서 재사용을 하였다.
+
+   하지만 input값이나 select값에서 string으로 된 값들은 제대로 인식하지 못하는 typescript정의에 어긋난 오류가 많아서 불가피하게 any로 처리를 많이 했는데, 이런 문자열로 작성하면서 발생할 수 있는 실수를 방지하기 위해 ENUM인 열거형 처리방식을 사용한다.
+
+   열거형이라 부르는 enum은 타입스크립트가 제공하는 기능으로 상수들의 집합을 정의해서 실수를 방지하도록 도와주고 실사용 예시는 아래처럼 사용한다.
+
+   enum Categories = {
+   "TODO",
+   "DOING",
+   "DONE"
+   }
+
+   이게 끝이다. 타입으로 필요했던 부분들에 모두 Categories로 대체해주면 된다.
+
+   enum에서 값들은 우리가 알아보기 좋게 문자열등의 형태로 표기를 해주지만 각각의 값들은 index형태로 숫자로 기억을 하고 있는다.
+   button태그의 name값등에 enum을 넣어주게되면 그래서 오류가 발생한다. name에는 숫자가 들어갈 수 없기때문이다.
+
+   enum에 문자열로 재정의하는 방법도 있다.
+   enum Categories = {
+   "TODO"="TODO",
+   "DOING"="DOING",
+   "DONE"="DONE"
+   }
