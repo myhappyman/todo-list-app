@@ -10,6 +10,11 @@ export interface IToDo {
     // category: string;
 }
 
+export const categoryState = atom({
+    key: "category",
+    default: "TODO"
+})
+
 //atom으로 toDo State 정의
 export const toDoState = atom<IToDo[]>({
     key: "toDo",
@@ -21,10 +26,7 @@ export const toDoSelector = selector({
     key: "toDoSelector",
     get: ({get}) => {
         const toDos = get(toDoState);
-        return [
-            toDos.filter(toDo => toDo.category === "TODO"),
-            toDos.filter(toDo => toDo.category === "DOING"),
-            toDos.filter(toDo => toDo.category === "DONE"),
-        ];
+        const category = get(categoryState);
+        return toDos.filter(toDo => toDo.category === category);
     }
 });
