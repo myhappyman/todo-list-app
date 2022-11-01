@@ -33,16 +33,26 @@ function ToDo({text, category, id}:IToDo){
                 ...oldToDos.slice(targetIndex+1) //back
             ];
         });
+    }
 
+    const deleteToDo = () => {
+        setToDos((oldToDos) => {
+            const targetIndex = oldToDos.findIndex(toDo => toDo.id === id);
+            return [
+                ...oldToDos.slice(0, targetIndex), //front
+                ...oldToDos.slice(targetIndex+1) //back
+            ];
+        });
     }
 
     //기존에 작성하던 방식인 onClick={onClick("TODO")} 이런 형태로는 인자가 넘겨지지 않는다.
     return (
         <li>
             {text}
-            {category !== Categories.TODO && <button name={Categories.TODO} onClick={onClick}>TODO</button>}
-            {category !== Categories.DOING && <button name={Categories.DOING} onClick={onClick}>DOING</button>}
-            {category !== Categories.DONE && <button name={Categories.DONE} onClick={onClick}>DONE</button>}
+            {category !== Categories.TODO && <button name={Categories.TODO} onClick={onClick}>할 일</button>}
+            {category !== Categories.DOING && <button name={Categories.DOING} onClick={onClick}>하는중</button>}
+            {category !== Categories.DONE && <button name={Categories.DONE} onClick={onClick}>완료</button>}
+            <button onClick={deleteToDo}>할 일 삭제</button>
         </li>
     );
 }

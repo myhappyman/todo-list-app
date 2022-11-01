@@ -8,8 +8,8 @@ export const darkTheme:DefaultTheme = {
 }
 
 export const whiteTheme:DefaultTheme = {
-    bgColor:"#ecf0f1",
+    bgColor:"#f5f6fa",
     boxBgColor: "#ffffff",
-    textColor:"#34495e",
+    textColor:"#273c75",
     accentColor: "#2ecc71"
 }
