@@ -108,3 +108,11 @@ const onClick = (event:React.MouseEvent<HTMLButtonElement>) => {
 const {currentTarget:{name}} = event;
 console.log("i wanna to ", name);
 }
+
+4. recoil selector
+   selector는 기존에 존재하는 state를 원하는 형태로 변경하여 사용하는 함수입니다.
+   즉, selector는 state를 가지고 다른 state를 만들어 낼 수 있습니다.
+   샘플 예제에서 보듯이 TODO, DOING, DONE 3개의 카테고리가 있고, 이 카테고리별로 정리하고 싶다면? 데이터를 출력하기전에 useRecoilValue로 받은 state값을 filter해도 되겠지만, 애초에 selector를 atoms에서 새로 정의해서 filter별로 구분해서 가지고 있다면 어떤 컴포넌트에서든 해당 값들을 필터된걸로 가져올 수 있기때문에 해당 방식을 사용합니다.(원하는 방식으로 데이터를 체계화)
+
+   selector에는 key, get을 필수로 object값을 받습니다.
+   get에는 get object의 파라미터 인자를 받는 함수를 return 해주어야합니다.
