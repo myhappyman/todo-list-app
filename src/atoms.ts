@@ -26,11 +26,39 @@ export const categoryState = atom<Categories>({
     default: Categories.TODO
 })
 
+const localStorageEffect = (key: string) => ({ setSelf, onSet }: any) => {
+    const savedValue = localStorage.getItem(key);
+    if (savedValue !== null) {
+        setSelf(JSON.parse(savedValue));
+    }
+
+    onSet((newValue: any, _: any, isReset: boolean) => {
+        isReset ? localStorage.removeItem(key)
+        : localStorage.setItem(key, JSON.stringify(newValue));
+    });
+};
+
+const sessionStorageEffect = (key: string) => ({ setSelf, onSet }: any) => {
+    const savedValue = sessionStorage.getItem(key);
+
+    if (savedValue !== null) {
+        setSelf(JSON.parse(savedValue));
+    }
+    onSet((newValue: any, _: any, isReset: any) => {
+        const confirm = newValue.length === 0;
+        confirm ? sessionStorage.removeItem(key)
+        : sessionStorage.setItem(key, JSON.stringify(newValue));
+    });
+  };
+
 //atom으로 toDo State 정의
 export const toDoState = atom<IToDo[]>({
     key: "toDo",
-    default: []
+    default: [],
+    effects: [localStorageEffect("toDo"), sessionStorageEffect("toDo")],
 });
+
+
 
 //selector를 통해 state를 다른 state로 만들어보자
 export const toDoSelector = selector({

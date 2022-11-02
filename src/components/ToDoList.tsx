@@ -24,8 +24,6 @@ const Title = styled.div`
 
 function ToDoList(){
     const toDos = useRecoilValue(toDoSelector);
-    console.log("toDos");
-    console.log(toDos);
     return (
         <Wrapper>
             <Wrap>
