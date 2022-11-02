@@ -19,14 +19,17 @@ const Title = styled.div`
     display: block;
     text-align: center;
     font-size: 36px;
+    margin: 36px 0;
 `;
 
 function ToDoList(){
     const toDos = useRecoilValue(toDoSelector);
+    console.log("toDos");
+    console.log(toDos);
     return (
         <Wrapper>
             <Wrap>
-                <Title>To Dos</Title>
+                <Title>할 일 목록</Title>
                 <Selector />
                 <CreateToDo />
                 {toDos.map(d => <ToDo key={d.id} {...d} />)}

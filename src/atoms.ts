@@ -16,6 +16,7 @@ export interface IToDo {
     text: string;
     id: number;
     category: Categories //3개만 허용
+    writeMode: boolean;
     // category: "TODO" | "DOING" | "DONE" //3개만 허용
     // category: string;
 }
