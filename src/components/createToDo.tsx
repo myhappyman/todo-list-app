@@ -21,6 +21,7 @@ const InputWrap = styled.div`
         outline: 0;
         width: 100%;
         height: 38px;
+        padding: 0 3rem 0 1rem;
         &:focus{
             border: 3px solid ${props => props.theme.accentColor};
         }
