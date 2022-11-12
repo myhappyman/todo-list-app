@@ -15,17 +15,18 @@ URL : https://myhappyman.github.io/todo-list-app
 설치가 완료되면 사용을 위해 `useForm`이라는 hook을 import해야한다.
 `useForm`은 다양한걸 제공하는데, 그 중 `register`라는 함수가 있다.
 #### `- register`
-<b>해당 함수는 input에 특화</b>되어 있다.
-onBlur, onChange를 가지고 있다.
+`<b>해당 함수는 input에 특화</b>되어 있다.
+`onBlur`, `onChange`를 가지고 있다.
 
 생성한 함수 `register`를 input 태그내에 `{...register("이름")} `형태로 넣어서 스프레드 연산자를 통해 자연스럽게 value, onChange, state값등을 처리할 수 있다.
 
 이후 2번째 인자에는 각종 유효성 검사 항목을 object형태로 넣어서 체크할 수 있다.
->{required:true}
-
->{required:"이름 항목은 필수입니다."}
 
 ```Typescript
+//{required:true}
+
+//{required:"이름 항목은 필수입니다."}
+
 {
     required:"비밀번호 항목은 필수입니다.",
     minLength: {value:5, message: "비밀번호는 최소 5자리 이상입니다."}
@@ -39,8 +40,6 @@ onBlur, onChange를 가지고 있다.
     }
 }
 ```
-
-
 
 #### `- validate`
 true가 되면 허용이고 false가 발생하면 오류를 발생시킨다.
@@ -58,9 +57,12 @@ watch를 실행해보면 input에 등록한 toDo라는 값의 입력이 어떤�
 `handleSubmit`을 가지고 `validation(유효성 검사)`를 진행할 수 있다.
 `form`태그에 `onSubmit`을 걸고 `handleSubmit`을 넣어준다.
 `handleSubmit(arg1, arg2)`에는 2개의 파라미터를 받도록 되어 있다.
-> @arg1 : 데이터가 유효한 경우 동작되는 함수 (필수값)
-
-> @arg2 : 데이터가 유효하지 않는 경우 동작되는 함수 (필수 X)
+```HTML
+//@arg1 : 데이터가 유효한 경우 동작되는 함수 (필수값)
+//@arg2 : 데이터가 유효하지 않는 경우 동작되는 함수 (필수 X)
+<form onSubmit={handleSubmit(onValid, onInValid)}>
+</form>
+```
 
 유효하지 않는 데이터 처리를 확인해보기 위해
 resgister의 2번째 인자에 required등 속성값 등을 주었다.
